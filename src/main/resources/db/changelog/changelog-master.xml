@@ -1,0 +1,174 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:appdba="http://www.datical.net/xml/ns/appdba" xmlns:datical="http://www.datical.net/xml/ns/datical" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-1">
+        <createTable tableName="author">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-2">
+        <createTable tableName="book">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(45)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="number_of_pages" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-3">
+        <createTable tableName="book_2_author">
+            <column name="book_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="author_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-4">
+        <createTable tableName="bulb">
+            <column autoIncrement="true" name="PK" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="power" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-5">
+        <createTable tableName="candle">
+            <column autoIncrement="true" name="PK" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="price" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="wick_PK" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-6">
+        <createTable tableName="canvas">
+            <column autoIncrement="true" name="PK" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="square" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-7">
+        <createTable tableName="chandelier">
+            <column autoIncrement="true" name="PK" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="color" type="VARCHAR(45)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-8">
+        <createTable tableName="chandelier_has_bulb">
+            <column name="chandelier_PK" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="bulb_PK" type="BIGINT">
+                <constraints primaryKey="true" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-9">
+        <createTable tableName="head">
+            <column name="human_PK" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="has_hair" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-10">
+        <createTable tableName="human">
+            <column autoIncrement="true" name="PK" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="age" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-11">
+        <createTable tableName="image">
+            <column autoIncrement="true" name="PK" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="canvas_PK" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-12">
+        <createTable tableName="wick">
+            <column autoIncrement="true" name="PK" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="material" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-13">
+        <createIndex indexName="fk_book_has_author_author1_idx" tableName="book_2_author">
+            <column name="author_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-14">
+        <createIndex indexName="fk_book_has_author_book_idx" tableName="book_2_author">
+            <column name="book_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-15">
+        <createIndex indexName="fk_candle_wick1_idx" tableName="candle">
+            <column name="wick_PK"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-16">
+        <createIndex indexName="fk_chandelier_has_bulb_chandelier1_idx" tableName="chandelier_has_bulb">
+            <column name="chandelier_PK"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-17">
+        <createIndex indexName="fk_image_canvas1_idx" tableName="image">
+            <column name="canvas_PK"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-18">
+        <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="book_2_author" constraintName="fk_book_has_author_author1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="author" validate="true"/>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-19">
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="book_2_author" constraintName="fk_book_has_author_book" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="book" validate="true"/>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-20">
+        <addForeignKeyConstraint baseColumnNames="wick_PK" baseTableName="candle" constraintName="fk_candle_wick1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="PK" referencedTableName="wick" validate="true"/>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-21">
+        <addForeignKeyConstraint baseColumnNames="bulb_PK" baseTableName="chandelier_has_bulb" constraintName="fk_chandelier_has_bulb_bulb1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="PK" referencedTableName="bulb" validate="true"/>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-22">
+        <addForeignKeyConstraint baseColumnNames="chandelier_PK" baseTableName="chandelier_has_bulb" constraintName="fk_chandelier_has_bulb_chandelier1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="PK" referencedTableName="chandelier" validate="true"/>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-23">
+        <addForeignKeyConstraint baseColumnNames="human_PK" baseTableName="head" constraintName="fk_head_human1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="PK" referencedTableName="human" validate="true"/>
+    </changeSet>
+    <changeSet author="Hryhorii_Popov (generated)" id="1589479269037-24">
+        <addForeignKeyConstraint baseColumnNames="canvas_PK" baseTableName="image" constraintName="fk_image_canvas1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="PK" referencedTableName="canvas" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
