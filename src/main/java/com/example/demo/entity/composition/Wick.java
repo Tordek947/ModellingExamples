@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -24,10 +26,12 @@ public class Wick implements CompositeElement {
     @Column(name = "material")
     private String material;
 
+    @JsonIgnore
     @OneToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH },
 	    optional = true, mappedBy = "wick")
     private Candle candle;
 
+    @JsonIgnore
     @Override
     public Object getCompositeParent() {
 	return getCandle();

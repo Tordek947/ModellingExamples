@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -28,8 +30,10 @@ public class Chandelier {
     private String color;
 
     @OneToMany(
-	    cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
-		    CascadeType.REMOVE },
-	    mappedBy = "chandelier", fetch = FetchType.EAGER)
+	    cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH },
+	    fetch = FetchType.LAZY)
+    @JoinTable(name = "chandelier_2_bulb",
+	    inverseJoinColumns = @JoinColumn(nullable = false, unique = true, name = "bulb_PK"),
+	    joinColumns = @JoinColumn(nullable = false, unique = false, name = "chandelier_PK"))
     private Set<Bulb> bulbs;
 }

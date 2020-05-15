@@ -13,7 +13,9 @@ import org.springframework.data.repository.core.RepositoryMetadata;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
 
 import com.example.demo.entity.composition.CompositeElement;
+import com.example.demo.entity.composition.OneToOneCompositeElement;
 import com.example.demo.repository.definition.impl.DefaultCompositeElementRepository;
+import com.example.demo.repository.definition.impl.DefaultOneToOneCompositeElementRepository;
 
 public class RepositoryFactoryBean<R extends JpaRepository<T, I>, T, I extends Serializable>
 	extends JpaRepositoryFactoryBean<R, T, I> {
@@ -36,6 +38,9 @@ public class RepositoryFactoryBean<R extends JpaRepository<T, I>, T, I extends S
 	@Override
 	protected JpaRepositoryImplementation<?, ?> getTargetRepository(RepositoryInformation information,
 		EntityManager entityManager) {
+	    if (OneToOneCompositeElement.class.isAssignableFrom(information.getDomainType())) {
+		return new DefaultOneToOneCompositeElementRepository(information.getDomainType(), entityManager);
+	    }
 	    if (CompositeElement.class.isAssignableFrom(information.getDomainType())) {
 		return new DefaultCompositeElementRepository(information.getDomainType(), entityManager);
 	    }
@@ -49,20 +54,6 @@ public class RepositoryFactoryBean<R extends JpaRepository<T, I>, T, I extends S
 	    }
 	    return super.getRepositoryBaseClass(metadata);
 	}
-//	protected Object getTargetRepository(RepositoryMetadata metadata) {
-//	    if (CompositeElement.class.isAssignableFrom(metadata.getDomainType()) {
-//		return new DefaultCompositeElementRepository<>(metadata.getDomainType(), em);
-//	    }
-////	    return new MyRepositoryImpl<T, I>((Class<T>) metadata.getDomainClass(), entityManager);
-//	}
-//
-//	protected Class<?> getRepositoryBaseClass(RepositoryMetadata metadata) {
-//
-//	    // The RepositoryMetadata can be safely ignored, it is used by the
-//	    // JpaRepositoryFactory
-//	    // to check for QueryDslJpaRepository's which is out of scope.
-//	    return MyRepository.class;
-//	}
     }
 
 }

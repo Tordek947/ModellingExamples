@@ -29,6 +29,6 @@ public class Candle {
 	    cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
 		    CascadeType.REMOVE },
 	    optional = false)
-    @JoinColumn(name = "wick_PK", nullable = false)
+    @JoinColumn(name = "wick_PK"/* , referencedColumnName = "PK" */, nullable = true)
     private Wick wick;
 }

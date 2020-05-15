@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.util.Assert;
@@ -33,7 +34,8 @@ public interface CompositeElementRepository<T extends CompositeElement> extends 
 	if (existing.get().getCompositeParent() == null && entity.getCompositeParent() == null) {
 	    mergeIfNeededAndRemoveEntity(entity);
 	} else {
-	    throw new IllegalStateException("Entity cannot be deleted while it belongs to a composite parent");
+	    throw new DataIntegrityViolationException(
+		    "Entity cannot be deleted while it belongs to a composite parent");
 	}
 
     }
@@ -52,7 +54,8 @@ public interface CompositeElementRepository<T extends CompositeElement> extends 
 	if (existingEntity.getCompositeParent() == null) {
 	    removeEntity(existingEntity);
 	} else {
-	    throw new IllegalStateException("Entity cannot be deleted while it belongs to a composite parent");
+	    throw new DataIntegrityViolationException(
+		    "Entity cannot be deleted while it belongs to a composite parent");
 	}
     }
 
@@ -64,7 +67,7 @@ public interface CompositeElementRepository<T extends CompositeElement> extends 
 	Iterable<T> allEntities = findAll();
 	for (T entity : allEntities) {
 	    if (entity.getCompositeParent() != null) {
-		throw new IllegalStateException("At least one entity contain composite parent!");
+		throw new DataIntegrityViolationException("At least one entity contain composite parent!");
 	    }
 	}
 	removeEntities(allEntities);
@@ -89,7 +92,7 @@ public interface CompositeElementRepository<T extends CompositeElement> extends 
 		continue;
 	    }
 	    if (existing.get().getCompositeParent() != null || entity.getCompositeParent() != null) {
-		throw new IllegalStateException("At least one entity contain composite parent!");
+		throw new DataIntegrityViolationException("At least one entity contain composite parent!");
 	    }
 	    existingEntities.add(entity);
 	}

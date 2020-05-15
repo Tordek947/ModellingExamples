@@ -5,7 +5,7 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 
 import com.example.demo.entity.composition.Chandelier;
 
-//@RepositoryRestController
+@RepositoryRestController
 public interface ChandelierRepository extends CrudRepository<Chandelier, Long> {
 
 }

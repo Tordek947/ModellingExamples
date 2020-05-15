@@ -5,7 +5,8 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 
 import com.example.demo.entity.composition.Candle;
 
-//@RepositoryRestController
+@RepositoryRestController
 public interface CandleRepository extends CrudRepository<Candle, Long> {
 
+    
 }

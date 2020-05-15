@@ -1,16 +1,17 @@
 package com.example.demo.entity.composition;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.data.rest.core.annotation.RestResource;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -27,13 +28,16 @@ public class Bulb implements CompositeElement {
     @Column(name = "power", nullable = false)
     private Integer power;
 
-    @ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH },
-	    optional = true, fetch = FetchType.LAZY)
-    @JoinTable(name = "chandelier_has_bulb",
-	    joinColumns = @JoinColumn(nullable = false, unique = false, name = "chandelier_PK"),
-	    inverseJoinColumns = @JoinColumn(nullable = false, unique = true, name = "bulb_PK"))
+    @RestResource(exported = false)
+    @JsonIgnore
+    @ManyToOne(optional = true)
+    @Transient
+//    @ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH },
+//	    optional = true, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "chandelier_PK", nullable = true, table = "bulb")
     private Chandelier chandelier;
 
+    @JsonIgnore
     @Override
     public Object getCompositeParent() {
 	return getChandelier();
