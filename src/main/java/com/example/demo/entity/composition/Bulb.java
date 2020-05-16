@@ -14,6 +14,8 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Table(name = "bulb")
@@ -28,6 +30,8 @@ public class Bulb implements CompositeElement {
     @Column(name = "power", nullable = false)
     private Integer power;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @RestResource(exported = false)
     @JsonIgnore
     @ManyToOne(optional = true)

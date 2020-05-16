@@ -14,6 +14,8 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Table(name = "image")
@@ -28,7 +30,8 @@ public class Image implements CompositeElement {
     @Column(name = "name")
     private String name;
 
-//    @JsonBackReference
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @JsonIgnore
     @RestResource(exported = false)
     @OneToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH },
