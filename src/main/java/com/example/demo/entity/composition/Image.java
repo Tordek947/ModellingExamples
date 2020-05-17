@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import ua.cmathtutor.startledfrog.entity.composition.CompositeElement;
 
 @Entity
 @Table(name = "image")
